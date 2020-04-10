@@ -1,3 +1,4 @@
+// Source: https://cfpub.epa.gov/ghgdata/inventoryexplorer/#allsectors/allgas/econsect/all
 var carbonemissions = [
   {year: 1990, co2: 5121.1794396362200},
   {year: 1991, co2: 5071.563914129350},
@@ -32,14 +33,18 @@ var carbonemissions = [
 ];
 
 
-var CURRENT_YEAR_CO2_ESTIMATIONS = 5300;
-var US_POPULATION = 327200000;
-var MILION = 1000000;
-var MS_PER_YEAR = 31557600000;
-var TAX_AMOUNT = 71;
-var START_YEAR = 1990;
+const CURRENT_YEAR_CO2_ESTIMATIONS = 5300;
+const US_POPULATION = 327200000;
+const MILION = 1000000;
+const MS_PER_YEAR = 31557600000;
 
+var selectedTaxAmount = 71;
+var selectedStartYear = 1990;
 
+/* Given a starting year, adds up all of carbon dioxide the emissions
+ * Then adds an approximation for the carbon dioxide release so far in the current year
+ * All other functions lean on this one
+ */
 function TotalEmissionsFromYear(year) {
   var untilNow = carbonemissions.filter(function(emissions) {
         return year <= emissions.year;
@@ -56,21 +61,43 @@ function TotalEmissionsFromYear(year) {
 };
 
 
+/* Given a year and tax amount multiplies the total emissions release by the tax price
+ */
 function TaxGatherSinceYear(taxAmount, year) {
   return TotalEmissionsFromYear(year) * taxAmount;
 };
 
 
+/* Divides the total collected tax by the US population
+ */
 function TaxPerPersonSinceYear(taxAmount, year) {
   return TaxGatherSinceYear(taxAmount, year) / US_POPULATION;
 };
 
 
+/* Splits a decimal number to commas for readability
+ * Source: https://stackoverflow.com/a/2901298
+ */
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 
+/* Event listener for user changing the year the simulation starts */
+$("#yearSelect").change(function() {
+  START_YEAR = parseInt($("#yearSelect").val());
+});
+
+
+/* Event listener for user changing the tax amount */
+$("#taxSelect").change(function() {
+  TAX_AMOUNT = parseInt($("#taxSelect").val());
+});
+
+
+/* Recalculates all of the numbers (reruns all of the functions).
+ * This is basically the main loop
+ */
 function recalculate() {
   $("#totalEmissions").text(numberWithCommas(TotalEmissionsFromYear(START_YEAR).toFixed(3)));
   $("#totalTax").text(numberWithCommas(TaxGatherSinceYear(TAX_AMOUNT, START_YEAR).toFixed(3)));
@@ -78,15 +105,6 @@ function recalculate() {
 };
 
 
-$("#yearSelect").change(function() {
-  START_YEAR = parseInt($("#yearSelect").val());
-});
-
-
-$("#taxSelect").change(function() {
-  TAX_AMOUNT = parseInt($("#taxSelect").val());
-});
-
-
 // Run every half a second
 var intervalID = window.setInterval(recalculate, 100);
+
