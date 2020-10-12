@@ -9,7 +9,15 @@
     var day = String(today.getDate()).padStart(2, '0');
     var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var year = today.getFullYear();
-    location.replace(`https://www.timeanddate.com/worldclock/meetingtime.html?day=${day}&month=${month}&year=${year}&p1=676&p2=236&iv=1800`)
+
+    // Set custom inteval (one of 600, 900, 1800)
+    var url = new URL(window.location.href);
+    var interval = url.searchParams.get('iv');
+    if (null == interval) { //default
+        interval = 1800
+    }
+
+    location.replace(`https://www.timeanddate.com/worldclock/meetingtime.html?day=${day}&month=${month}&year=${year}&p1=676&p2=236&iv=${interval}`)
 </script>
 
 </body>
