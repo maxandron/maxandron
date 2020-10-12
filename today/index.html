@@ -2,11 +2,14 @@
 <html>
 <body>
 
-<h2>Redirect to world clock</h2>
+<h2>Redirecting to world clock</h2>
 
 <script>
-var today = new Date();
-location.replace("https://www.timeanddate.com/worldclock/meetingtime.html?day=13&month=10&year=2020&p1=676&p2=236&iv=1800")
+    var today = new Date();
+    var day = String(today.getDate()).padStart(2, '0');
+    var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var year = today.getFullYear();
+    location.replace(`https://www.timeanddate.com/worldclock/meetingtime.html?day=${day}&month=${month}&year=${year}&p1=676&p2=236&iv=1800`)
 </script>
 
 </body>
