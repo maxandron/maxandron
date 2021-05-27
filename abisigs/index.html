@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/styles.css">
+    <script src="web3.min.js"></script>
+    <script src="app.js"></script>
+
+  </head>
+  <body>
+      <textarea id="abicode" class="form-control" placeholder="Paste ABI here"></textarea>
+      <button id="extractBtn" type="button" class="btn btn-primary mt-4">Parse</button>
+      <table class="table table-hover mt-4">
+          <thead>
+              <th scope="col">Signature</th>
+              <th scope="col">Hash</th>
+          </thead>
+          <tbody id="signaturesTbl">
+          </tbody>
+      </table>
+  </body>
+</html>
