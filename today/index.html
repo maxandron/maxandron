@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html>
-<body>
+  <body>
+    <h2>Redirecting to world clock</h2>
 
-<h2>Redirecting to world clock</h2>
+    <script>
+      var today = new Date();
+      var day = String(today.getDate()).padStart(2, "0");
+      var month = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+      var year = today.getFullYear();
 
-<script>
-    var today = new Date();
-    var day = String(today.getDate()).padStart(2, '0');
-    var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var year = today.getFullYear();
+      // Set custom inteval (one of 600, 900, 1800)
+      var url = new URL(window.location.href);
+      var interval = url.searchParams.get("iv");
+      if (null == interval) {
+        //default
+        interval = 1800;
+      }
 
-    // Set custom inteval (one of 600, 900, 1800)
-    var url = new URL(window.location.href);
-    var interval = url.searchParams.get('iv');
-    if (null == interval) { //default
-        interval = 1800
-    }
-
-    location.replace(`https://www.timeanddate.com/worldclock/meetingtime.html?day=${day}&month=${month}&year=${year}&p1=236&p2=676&p3=371&p4=264&p5=367iv=${interval}`)
-</script>
-
-</body>
-</html> 
+      location.replace(
+        `https://www.timeanddate.com/worldclock/meetingtime.html?day=${day}&month=${month}&year=${year}&p1=236&p2=676&p3=371&p4=264&p5=367iv=${interval}`
+      );
+    </script>
+  </body>
+</html>
