@@ -17,8 +17,13 @@
         interval = 1800;
       }
 
+      const BANGKOK = 28;
+      const SINGAPORE = 236;
+      const TBILISI = 371;
+      const TELAVIV = 676;
+
       location.replace(
-        `https://www.timeanddate.com/worldclock/meetingtime.html?day=${day}&month=${month}&year=${year}&p1=236&p2=676&p3=371&p4=264&p5=367iv=${interval}`
+          `https://www.timeanddate.com/worldclock/meetingtime.html?day=${day}&month=${month}&year=${year}&p1=${SINGAPORE}&p2=${BANGKOK}&p3=${TBILISI}&p4=${TELAVIV}&iv=${interval}`
       );
     </script>
   </body>
